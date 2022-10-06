@@ -1,0 +1,10 @@
+{
+  "name": "automated-risk-assessment",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "chalk": "^5.0.1"
+  }
+}
