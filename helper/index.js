@@ -8,19 +8,19 @@
 
 import chalk from 'chalk'
 const data = {
-  claim_profit_costs: 639.19,
-  claim_disbursements: 0,
-  claim_travel: 11.52,
-  claim_waiting: 0,
+  claim_profit_costs: 1121.78,
+  claim_disbursements: 61.32,
+  claim_travel: 74.88,
+  claim_waiting: 259.20,
   assigned_counsel: false,
   rep_order_withdrawn: false,
   extradition: false,
-  no_of_pages_prosecution_evidence: 31,
-  no_of_pages_defence_statements: 6,
-  no_of_defence_witness: 0,
-  attendance_time: 186, // Mins
-  prep_time: 354, // Mins
-  advocacy_time: 90, // Mins
+  no_of_pages_prosecution_evidence: 50,
+  no_of_pages_defence_statements: 1,
+  no_of_defence_witness: 1,
+  attendance_time: 282, // Mins
+  prep_time: 552, // Mins
+  advocacy_time: 246, // Mins
   uplift: false,
   cctv_length: 24, // Mins
 }
