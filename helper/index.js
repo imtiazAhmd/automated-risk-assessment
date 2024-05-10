@@ -22,13 +22,13 @@ const multipliers = {
   advocacy_time: 2,
 }
 
-function convertToMinutes(hours, minutes) {
-  return hours * 60 + minutes;
+function convertToMinutes(timeObject) {
+  return timeObject.hours * 60 + timeObject.mins;
 }
 
-let prep_time = convertToMinutes(data.prep_time.hours, data.prep_time.mins);
-let attendance_time = convertToMinutes(data.attendance_time.hours, data.attendance_time.mins);
-let advocacy_time = convertToMinutes(data.advocacy_time.hours, data.advocacy_time.mins);
+let prep_time = convertToMinutes(data.prep_time);
+let attendance_time = convertToMinutes(data.attendance_time);
+let advocacy_time = convertToMinutes(data.advocacy_time);
 
 function bill_is_high_risk() {
   // Is the claim over £5K?
