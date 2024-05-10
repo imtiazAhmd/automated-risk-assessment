@@ -75,7 +75,7 @@ function advocacy_time_validation() {
   //is new 'prep' time equal or less than advocacy x2 AND
   //is the attendance equal or less than advocacy x2?
   const new_preptime = get_new_preptime()
-  const double_the_advocacy_time = data.advocacy_time * 2
+  const double_the_advocacy_time = data.advocacy_time * multipliers.advocacy_time
   return (
     new_preptime <= double_the_advocacy_time &&
     data.attendance_time <= double_the_advocacy_time
