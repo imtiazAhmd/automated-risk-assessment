@@ -8,21 +8,21 @@
 
 import chalk from 'chalk'
 const data = {
-  claim_profit_costs: 1121.78,
-  claim_disbursements: 61.32,
-  claim_travel: 74.88,
-  claim_waiting: 259.20,
+  claim_profit_costs: 639.17,
+  claim_disbursements: 0,
+  claim_travel: 11.52,
+  claim_waiting: 23.04,
   assigned_counsel: false,
   rep_order_withdrawn: false,
   extradition: false,
-  no_of_pages_prosecution_evidence: 50,
-  no_of_pages_defence_statements: 1,
-  no_of_defence_witness: 1,
-  attendance_time: 282, // Mins
-  prep_time: 552, // Mins
-  advocacy_time: 246, // Mins
+  no_of_pages_prosecution_evidence: 38,
+  no_of_pages_defence_statements: 6,
+  no_of_defence_witness: 0,
+  attendance_time: 186, // Mins
+  prep_time: 336, // Mins
+  advocacy_time: 90, // Mins
   uplift: false,
-  cctv_length: 24, // Mins
+  cctv_length: 0, // Mins
 }
 data.claim_total =
   data.claim_profit_costs +
@@ -36,6 +36,12 @@ const atleast_any_one_of_the_condition_is_true =
   data.extradition ||
   data.rep_order_withdrawn
 
+const multipliers = {
+  prosecution_evidence: 4,
+  defence_statements: 2, // it takes 00:02 per page to assess
+  defence_witness: 30, // it takes avg 00:30 to assess one defence witness
+  advocacy_time: 2,
+}
 function bill_is_high_risk() {
   // Is the claim over £5K?
   // Is there an assigned counsel?
@@ -48,15 +54,15 @@ function bill_is_high_risk() {
 
 function prep_and_att_validation() {
   // Are preparation and attendance times equal or less than double the advocacy?
-  return data.prep_time + data.attendance_time <= data.advocacy_time * 2
+  return data.prep_time + data.attendance_time <= data.advocacy_time * multipliers.advocacy_time
 }
 
 function get_new_preptime() {
   // Double the totals for prosecution evidence, defence statements, Tape/CCTV length and for each defence witness allow 30minutes
   const prosecution_evidence_prep_time =
-    data.no_of_pages_prosecution_evidence * 2 * 2
-  const defence_statements_prep_time = data.no_of_pages_defence_statements * 2 // it takes 00:02 per page to assess
-  const defence_witness_prep_time = data.no_of_defence_witness * 30 // it takes avg 00:30 to assess one defence witness
+    data.no_of_pages_prosecution_evidence * multipliers.prosecution_evidence
+  const defence_statements_prep_time = data.no_of_pages_defence_statements * multipliers.defence_statements
+  const defence_witness_prep_time = data.no_of_defence_witness * multipliers.defence_witness
   return (
     prosecution_evidence_prep_time +
     defence_statements_prep_time +
