@@ -10,9 +10,18 @@ export const data = {
     no_of_pages_prosecution_evidence: 38,
     no_of_pages_defence_statements: 6,
     no_of_defence_witness: 0,
-    attendance_time: 186, // Mins
-    prep_time: 336, // Mins
-    advocacy_time: 90, // Mins
+    attendance_time: {
+        hours: 3,
+        mins: 6,
+    }, // Mins
+    prep_time: {
+        hours: 5,
+        mins: 30,
+    }, // Mins
+    advocacy_time: {
+        hours: 1,
+        mins: 30,
+    }, // Mins
     uplift: false,
     cctv_length: 0, // Mins
 }

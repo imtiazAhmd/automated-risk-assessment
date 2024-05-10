@@ -22,6 +22,14 @@ const multipliers = {
   advocacy_time: 2,
 }
 
+function convertToMinutes(hours, minutes) {
+  return hours * 60 + minutes;
+}
+
+let prep_time = convertToMinutes(data.prep_time.hours, data.prep_time.mins);
+let attendance_time = convertToMinutes(data.attendance_time.hours, data.attendance_time.mins);
+let advocacy_time = convertToMinutes(data.advocacy_time.hours, data.advocacy_time.mins);
+
 function bill_is_high_risk() {
   // Is the claim over £5K?
   // Is there an assigned counsel?
@@ -40,8 +48,8 @@ function bill_is_high_risk() {
 
 function prep_and_att_validation() {
   // Are preparation and attendance times equal or less than double the advocacy?
-  let totalPrepAndAttTime = data.prep_time + data.attendance_time;
-  let doubleAdvocacyTime = data.advocacy_time * multipliers.advocacy_time;
+  let totalPrepAndAttTime = prep_time + attendance_time;
+  let doubleAdvocacyTime = advocacy_time * multipliers.advocacy_time;
 
   return totalPrepAndAttTime <= doubleAdvocacyTime;
 }
@@ -64,10 +72,10 @@ function advocacy_time_validation() {
   //is new 'prep' time equal or less than advocacy x2 AND
   //is the attendance equal or less than advocacy x2?
   const new_preptime = get_new_preptime()
-  const double_the_advocacy_time = data.advocacy_time * multipliers.advocacy_time
+  const double_the_advocacy_time = advocacy_time * multipliers.advocacy_time
   return (
     new_preptime <= double_the_advocacy_time &&
-    data.attendance_time <= double_the_advocacy_time
+    attendance_time <= double_the_advocacy_time
   )
 }
 
