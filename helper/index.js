@@ -73,10 +73,7 @@ function advocacy_time_validation() {
   //is the attendance equal or less than advocacy x2?
   const new_preptime = get_new_preptime()
   const double_the_advocacy_time = advocacy_time * multipliers.advocacy_time
-  return (
-    new_preptime <= double_the_advocacy_time &&
-    attendance_time <= double_the_advocacy_time
-  )
+  return new_preptime + attendance_time <= double_the_advocacy_time
 }
 
 export function risk_automation_process() {
