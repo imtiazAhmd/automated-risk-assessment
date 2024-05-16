@@ -60,12 +60,8 @@ function get_new_preptime() {
     data.no_of_pages_prosecution_evidence * multipliers.prosecution_evidence
   const defence_statements_prep_time = data.no_of_pages_defence_statements * multipliers.defence_statements
   const defence_witness_prep_time = data.no_of_defence_witness * multipliers.defence_witness
-  return (
-    prosecution_evidence_prep_time +
-    defence_statements_prep_time +
-    data.cctv_length -
-    defence_witness_prep_time
-  )
+  const new_prep_time = prosecution_evidence_prep_time + defence_statements_prep_time + data.cctv_length - defence_witness_prep_time
+  return new_prep_time
 }
 
 function advocacy_time_validation() {
@@ -73,13 +69,15 @@ function advocacy_time_validation() {
   //is the attendance equal or less than advocacy x2?
   const new_preptime = get_new_preptime()
   const double_the_advocacy_time = advocacy_time * multipliers.advocacy_time
-  return new_preptime + attendance_time <= double_the_advocacy_time
+  return (
+    new_preptime <= double_the_advocacy_time &&
+    attendance_time <= double_the_advocacy_time
+  )
 }
 
 export function risk_automation_process() {
   let isHighRisk = bill_is_high_risk();
   let validation = prep_and_att_validation() || advocacy_time_validation();
-
   if (!isHighRisk && validation) {
     return chalk.bold.white.bgGreenBright('  Bill is LOW RISK  ')
   } else if (isHighRisk) {
