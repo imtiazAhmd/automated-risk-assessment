@@ -47,11 +47,11 @@ function bill_is_high_risk() {
 }
 
 function prep_and_att_validation() {
-  // Are preparation and attendance times equal or less than double the advocacy?
+  // Are preparation equal or less than double the advocacy?
+  // Are attendance times equal or less than double the advocacy?
   let totalPrepAndAttTime = prep_time + attendance_time;
-  let doubleAdvocacyTime = advocacy_time * multipliers.advocacy_time;
-
-  return totalPrepAndAttTime <= doubleAdvocacyTime;
+  let doubleTheAdvocacyTime = advocacy_time * multipliers.advocacy_time;
+  return prep_time <= doubleTheAdvocacyTime && attendance_time <= doubleTheAdvocacyTime;
 }
 
 function get_new_preptime() {
@@ -60,7 +60,7 @@ function get_new_preptime() {
     data.no_of_pages_prosecution_evidence * multipliers.prosecution_evidence
   const defence_statements_prep_time = data.no_of_pages_defence_statements * multipliers.defence_statements
   const defence_witness_prep_time = data.no_of_defence_witness * multipliers.defence_witness
-  const new_prep_time = prosecution_evidence_prep_time + defence_statements_prep_time + data.cctv_length - defence_witness_prep_time
+  const new_prep_time = (prosecution_evidence_prep_time + defence_statements_prep_time + data.cctv_length) - defence_witness_prep_time
   return new_prep_time
 }
 
