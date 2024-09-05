@@ -16,7 +16,7 @@ data.claim_total =
   data.claim_waiting
 
 const multipliers = {
-  prosecution_evidence: 4,
+  prosecution_evidence: 2,
   defence_statements: 2, // it takes 00:02 per page to assess
   defence_witness: 30, // it takes avg 00:30 to assess one defence witness
   advocacy_time: 2,
@@ -47,9 +47,8 @@ function bill_is_high_risk() {
 }
 
 function prep_and_att_validation() {
-  // Are preparation equal or less than double the advocacy?
+  // Are preparation equal or less than double the advocacy? AND
   // Are attendance times equal or less than double the advocacy?
-  let totalPrepAndAttTime = prep_time + attendance_time;
   let doubleTheAdvocacyTime = advocacy_time * multipliers.advocacy_time;
   return prep_time <= doubleTheAdvocacyTime && attendance_time <= doubleTheAdvocacyTime;
 }
@@ -60,7 +59,7 @@ function get_new_preptime() {
     data.no_of_pages_prosecution_evidence * multipliers.prosecution_evidence
   const defence_statements_prep_time = data.no_of_pages_defence_statements * multipliers.defence_statements
   const defence_witness_prep_time = data.no_of_defence_witness * multipliers.defence_witness
-  const new_prep_time = (prosecution_evidence_prep_time + defence_statements_prep_time + data.cctv_length) - defence_witness_prep_time
+  const new_prep_time = (prosecution_evidence_prep_time + defence_statements_prep_time + data.cctv_length + defence_witness_prep_time) - prep_time
   return new_prep_time
 }
 
